@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Competition {
+  id Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  code String @unique
+  areaName String
+
+  teams CompetitionToTeam[] 
+}
+
+model Team {
+  id Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  name String
+  tla String
+  shortName String
+  areaName String
+  address String
+
+  competitions CompetitionToTeam[]
+  players Player[]
+  coach Coach?
+}
+
+model CompetitionToTeam {
+  competition Competition @relation(fields: [competitionId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  competitionId Int
+  team Team? @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  teamId Int?
+
+  id Int @id @default(autoincrement())
+}
+
+model Player {
+  id Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  position String
+  dateOfBirth String
+  nationality String
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId Int
+}
+
+model Coach {
+  id Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  name String
+  dateOfBirth String
+  nationality String
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId Int @unique
+}
