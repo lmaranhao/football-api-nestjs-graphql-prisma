@@ -2,9 +2,10 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { LeagueResolver } from './graphql/resolver/league.resolver';
+import { GraphqlApiResolver } from './graphql/resolver/graphqlApiResolver.resolver';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { FootballApiService } from './footballApiClient/footballApi.service';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { ConfigModule } from '@nestjs/config';
     PrismaModule,
   ],
   controllers: [],
-  providers: [LeagueResolver],
+  providers: [GraphqlApiResolver, FootballApiService],
 })
 export class AppModule {}

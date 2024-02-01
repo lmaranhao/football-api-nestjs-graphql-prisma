@@ -27,15 +27,28 @@ model Team {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
-  name String
+  name String @unique
   tla String
   shortName String
   areaName String
   address String
 
   competitions CompetitionToTeam[]
-  players Player[]
+  players TeamToPlayer[]
   coach Coach?
+}
+
+model Player {
+  id Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  position String?
+  dateOfBirth String?
+  nationality String?
+
+  teams TeamToPlayer[]
 }
 
 model CompetitionToTeam {
@@ -47,18 +60,13 @@ model CompetitionToTeam {
   id Int @id @default(autoincrement())
 }
 
-model Player {
-  id Int @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  name String
-  position String
-  dateOfBirth String
-  nationality String
-
-  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+model TeamToPlayer {
+  team Team @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   teamId Int
+  player Player? @relation(fields: [playerId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  playerId Int?
+
+  id Int @id @default(autoincrement())
 }
 
 model Coach {
@@ -67,8 +75,8 @@ model Coach {
   updatedAt DateTime @updatedAt
   
   name String
-  dateOfBirth String
-  nationality String
+  dateOfBirth String?
+  nationality String?
 
   team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId Int @unique
