@@ -16,10 +16,10 @@ CREATE TABLE "Team" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "name" TEXT NOT NULL,
-    "tla" TEXT NOT NULL,
-    "shortName" TEXT NOT NULL,
-    "areaName" TEXT NOT NULL,
-    "address" TEXT NOT NULL,
+    "tla" TEXT,
+    "shortName" TEXT,
+    "areaName" TEXT,
+    "address" TEXT,
 
     CONSTRAINT "Team_pkey" PRIMARY KEY ("id")
 );

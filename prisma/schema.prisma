@@ -28,10 +28,10 @@ model Team {
   updatedAt DateTime @updatedAt
   
   name String @unique
-  tla String
-  shortName String
-  areaName String
-  address String
+  tla String? 
+  shortName String?
+  areaName String?
+  address String?
 
   competitions CompetitionToTeam[]
   players TeamToPlayer[]
