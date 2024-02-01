@@ -14,7 +14,7 @@ $ yarn install
 # create/install the postgres docker locally
 $ yarn db:dev:up
 
-# rename the.env.sample file to .env and change its contents to what I send you in the email
+# rename the .env.sample file to .env and change its contents to what I send in the email
 DATABASE_URL="postgresql://postgres:123@localhost:5434/santex?schema=public" # this is how my docker-compose file configures local postgres
 FOOTBALL-API-TOKEN="USE YOUR API TOKEN HERE"
 
